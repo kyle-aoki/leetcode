@@ -1,5 +1,5 @@
 class Solution {
-    
+
     public List<Integer> partitionLabels(String str) {
         List<Integer> partitionLengths = new ArrayList<>();
         Set<Character> seen = new HashSet<>();
@@ -9,9 +9,7 @@ class Solution {
             if (seen.contains(str.charAt(i))) continue;
             int end = 0;
             for (int j = i; j < str.length(); j++) {
-                if (str.charAt(j) == str.charAt(i)) {
-                    end = j;
-                }
+                if (str.charAt(j) == str.charAt(i)) end = j;
             }
             ranges.add(new Range(str.charAt(i), i, end));
             seen.add(str.charAt(i));
@@ -34,12 +32,12 @@ class Solution {
 }
 
 class Range {
-    
+
     char ch;
     int start;
     int end;
     int size;
-    
+
     Range(char ch, int start, int end) {
         this.ch = ch;
         this.start = start;
@@ -50,7 +48,7 @@ class Range {
     private void updateSize() {
         this.size = this.end - this.start + 1;
     }
-    
+
     void setEnd(int newEnd) {
         this.end = newEnd;
         updateSize();
