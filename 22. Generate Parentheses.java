@@ -7,7 +7,7 @@ class Solution {
         String fixed = "";
         return new ArrayList<>(permute(new Input(fixed, variable)));
     }
-    
+
     public boolean valid(String parenString) {
         int balance = 0;
         for (int i = 0; i < parenString.length(); i++) {
@@ -20,20 +20,22 @@ class Solution {
         }
         return true;
     }
-    
+
     public Set<String> permute(Input input) {
         if (seen.contains(input)) return new HashSet<>();
         if (input.variable.length() > 0) {
             Set<String> perms = new HashSet<>();
             for (int i = 0; i < input.variable.length(); i++) {
                 String newFixed = input.fixed + input.variable.charAt(i);
-                if (!valid(newFixed)) {
-                    return new HashSet<>();
-                }
+                if (!valid(newFixed)) return new HashSet<>();
+
                 String newVariable = input.variable.substring(0, i) + input.variable.substring(i + 1);
-                Set<String> newPerms = permute(new Input(newFixed, newVariable));
+
+                Input newInput = new Input(newFixed, newVariable);
+                Set<String> newPerms = permute(newInput);
+
                 perms.addAll(newPerms);
-                seen.add(input);
+                seen.add(newInput);
             }
             return perms;
         } else {
